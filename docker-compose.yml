@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: ankane/pgvector:latest  
+    container_name: clinical_trials_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: clinical_trial  
+    ports:
+      - "5432:5432"  
+    volumes:
+      - pg_data:/var/lib/postgresql/data 
+      - ./db/init:/docker-entrypoint-initdb.d  
+
+  app:
+    build:
+      context: .
+    container_name: clinical_trials_app
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/clinical_trial  
+      PYTHONPATH: /app 
+    volumes:
+      - ./app:/app  
+      - ./var/log:/var/log 
+    command: ["cron", "-f"] 
+
+  tests:
+    build:
+      context: .
+    container_name: clinical_trials_tests
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/clinical_trial  
+      PYTHONPATH: /app  
+    volumes:
+      - ./app:/app 
+    command: ["pytest", "--disable-warnings", "-v"] 
+
+volumes:
+  pg_data:
+    driver: local  

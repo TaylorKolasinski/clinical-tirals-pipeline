@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.env
+*.env
+
+# Docker-related files
+docker-compose.override.yml
+*.log
+var/log/
+
+# Test and coverage files
+.pytest_cache/
+*.coverage
+.cache/
+
+# SQL data
+pg_data/
+
+# IDE-related files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Generated files
+*.bak
+*.tmp
+*.lock
