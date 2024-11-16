@@ -89,7 +89,7 @@ This repository implements a data pipeline to ingest, transform, embed, and load
 
 3. **Run Semantic Search**:
    ```bash
-   docker-compose run app python -c "from app.search import search_trials; print(search_trials(query='NSCLC immunotherapy', top_k=5))"
+   docker-compose run app python -c "from search import search_trials; print(search_trials(query='NSCLC immunotherapy', top_k=5))"
    ```
 
 ---
